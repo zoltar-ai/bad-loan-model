@@ -1,0 +1,33 @@
+import static java.lang.System.lineSeparator
+
+final packageName = 'me.karun.loans.services.model'
+final prepDir = "${buildDir}/prep"
+
+task clean {
+  doLast {
+    delete buildDir
+  }
+}
+
+task installDeps(type: Exec) {
+  commandLine "pipenv", "install"
+}
+
+task train(type: Exec, dependsOn: installDeps) {
+  commandLine "pipenv", "run", "python", "run_training.py"
+}
+
+task createPrepDir() {
+  doLast {
+    mkdir(prepDir)
+  }
+}
+
+task prepCode(dependsOn: [train, createPrepDir]) {
+  doLast {
+    new File("${prepDir}/BadLoanModel.java")
+        .write("package ${packageName};${lineSeparator()}${lineSeparator()}${new File("${buildDir}/BadLoanModel.java").text}")
+  }
+}
+
+task build(dependsOn: prepCode)

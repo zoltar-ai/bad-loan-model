@@ -1,0 +1,9 @@
+{
+  "ntrees": 500,
+  "mtries": 4,
+  "max_depth": 3,
+  "stopping_tolerance": 0.0001,
+  "stopping_rounds": 2,
+  "score_each_iteration": true,
+  "seed": 42
+}

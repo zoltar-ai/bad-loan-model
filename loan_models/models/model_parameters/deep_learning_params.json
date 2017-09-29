@@ -1,0 +1,5 @@
+{
+  "seed": 42,
+  "hidden": [100, 100],
+  "input_dropout_ratio" : 0.15
+}
